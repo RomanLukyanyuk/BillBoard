@@ -1,0 +1,32 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("Create", "Advert")"><span class="fa fa-plus"></span> New</a></li>
+        <li class="dropdown ">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img width="25" height="25" src="~/Content/Images/avatar.png" class="user-avatar-mini"> @User.Identity.Name
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Личный кабинет", "Index", "Advert", routeValues: null, htmlAttributes: new { @class = "username" })</li>
+                <li>@Html.ActionLink("Управление учетной записью", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username" })</li>
+                <li class="divider"></li>
+                <li>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <span class="fa fa-power-off" />
+                        <a class="btn-default" href="javascript:document.getElementById('logoutForm').submit()"> Выйти</a>
+                    }
+                </li>
+            </ul>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li id="nav-register-btn">@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li id="nav-login-btn">@Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

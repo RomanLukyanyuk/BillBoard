@@ -1,0 +1,23 @@
+﻿@model IEnumerable<BillBoard.Models.Category>
+
+<div class="list-group">
+    @Html.RouteLink("Все категории", new
+            {
+                controller = "Advert",
+                action = "List",
+                category = (string)null
+            },
+            new { @class = ViewBag.SelectedCategory == null ? "list-group-item active" : "list-group-item" })
+</div>
+<div class="list-group">
+    @foreach (var link in Model)
+    {
+        @Html.RouteLink(link.Name, new
+                {
+                    controller = "Advert",
+                    action = "List",
+                    category = link.Name
+                },
+                new { @class = link.Name == ViewBag.SelectedCategory ? "list-group-item active" : "list-group-item" })
+    }
+</div>

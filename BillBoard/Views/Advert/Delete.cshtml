@@ -1,0 +1,70 @@
+﻿@model BillBoard.Models.Advert
+
+@{
+    ViewBag.Title = "Удалить: " + Model.Title;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <div class="panel-heading">
+                <h3 class="panel-title">Вы уверены, что хотите это удалить?</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 " align="center">
+                        @if (Model.ImageData == null)
+                        {
+                            <div style="float: left; margin-right: 20px">
+                                <img width="280" height="280" class="margin-admin-edit" src="~/Content/Images/no_image.jpg" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="float: left; margin-right: 20px">
+                                <img width="280" height="280" src="@Url.Action("GetImage", "Advert", new { Model.AdvertID })" />
+                            </div>
+                        }
+                    </div>
+
+                    <div class=" col-md-8 col-lg-8 ">
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Title):</td>
+                                    <td>@Html.DisplayFor(model => model.Title)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Description):</td>
+                                    <td>@Html.DisplayFor(model => model.Description)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Price):</td>
+                                    <td>@Html.DisplayFor(model => model.Price)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.ContactInfo):</td>
+                                    <td>@Html.DisplayFor(model => model.ContactInfo)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <button type="submit" class="btn btn-lg btn-danger btn-block"><span class="fa fa-trash-o"></span> Удалить</button>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <a class="btn btn-lg btn-success btn-block" href="@Url.Action("Index", "Advert", new { id = Model.AdvertID })"><span class="fa fa-reply"></span> Отмена</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

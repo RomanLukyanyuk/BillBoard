@@ -1,0 +1,27 @@
+﻿@model BillBoard.Models.Advert
+
+<li class="list-group-item">
+    <div class="row">
+        <div class="col-lg-2">
+            @if (Model.ImageData != null)
+            {
+                <img width="130" height="130" src="@Url.Action("GetImage", "Advert", new { Model.AdvertID })" />
+            }
+            else
+            {
+                <img width="130" height="130" class="margin-admin-edit" src="~/Content/Images/no_image.jpg" />
+            }
+        </div>
+
+        <div class="col-lg-8">
+            <h5><span class="label label-primary">@Model.Type.Name</span>&nbsp;@Model.Title</h5>
+            @Model.Description
+            <br>
+            <em>Контактная информация: @Model.ContactInfo</em>&nbsp;@Html.ActionLink("подробнее..." ,"Details", new { id = Model.AdvertID})
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="list-group-item-heading">@Model.Price.ToString("c")</h5>
+        </div>
+    </div>
+</li>

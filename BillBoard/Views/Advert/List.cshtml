@@ -1,0 +1,25 @@
+﻿@using BillBoard.HtmlHelpers
+@model BillBoard.Models.AdvertsListViewModel
+@{
+    ViewBag.Title = "Все объявления";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-3">
+        @{ Html.RenderAction("Navigation", "Advert"); }
+    </div>
+    <div class="col-lg-9">
+        <ul class="list-group">
+            @foreach (var advert in Model.Adverts)
+            {
+                Html.RenderPartial("AdvertSummary", advert);
+            }
+        </ul>
+        <div class="text-center">
+            <ul class="pagination">
+                @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+            </ul>
+        </div>
+    </div>
+</div>

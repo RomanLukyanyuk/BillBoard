@@ -1,0 +1,89 @@
+﻿@model BillBoard.Models.Advert
+
+@{
+    ViewBag.Title = "Редактировать: " + Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(Html.BeginForm("Edit", "Advert", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form role="form">
+                <fieldset>
+                    <h2>@ViewBag.Title</h2>
+                    <hr class="colorgraph">
+                    @Html.HiddenFor(model => model.AdvertID)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CategoryID, "Категория")
+                        @Html.DropDownList("CategoryID", null, String.Empty, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.CategoryID)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TypeID, "Тип")
+                        @Html.DropDownList("TypeID", null, String.Empty, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.TypeID)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title)
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price)
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Price)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactInfo)
+                        @Html.TextBoxFor(model => model.ContactInfo, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.ContactInfo)
+                    </div>
+
+                    <div class="editor-field">
+                        @if (Model.ImageData == null)
+                        {
+                            <img width="280" height="280" class="margin-admin-edit" src="~/Content/Images/no_image.jpg" />
+                        }
+                        else
+                        {
+                            <img width="280" height="280" src="@Url.Action("GetImage", "Advert", new { Model.AdvertID })" />
+                        }
+                    </div>
+                    <div>
+                        <span class="btn btn-default btn-file margin-admin-edit">Загрузить изоображение...<input type="file" name="Image" /></span>
+                    </div>
+
+                    <hr class="colorgraph">
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <button type="submit" class="btn btn-lg btn-success btn-block"><span class="fa fa-save"></span> Сохранить</button>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Index", "Advert")"><span class="fa fa-reply"></span> Отмена</a>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

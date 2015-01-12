@@ -1,0 +1,19 @@
+﻿@model BillBoard.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Управление учетной записью";
+}
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+@if (ViewBag.HasLocalPassword)
+{
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{ 
+    @Html.Partial("_SetPasswordPartial")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

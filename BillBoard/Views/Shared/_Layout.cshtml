@@ -1,0 +1,76 @@
+﻿@Styles.Render("~/Content/bootstrap.css")
+@Styles.Render("~/Content/colorgraph.css")
+@Styles.Render("~/Content/fontawesome/font-awesome.min.css")
+
+@Scripts.Render("~/Scripts/jquery-2.1.1.js")
+@Scripts.Render("~/Scripts/bootstrap.min.js")
+@Scripts.Render("~/Scripts/jquery.validate.min.js")
+@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Images/icon.png" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span> Главная</a></li>
+                    <li><a href="@Url.Action("List", "Advert")"><span class="fa fa-th-list"></span> Объявления</a></li>
+                    <li><a href="@Url.Action("About", "Home")"><span class="fa fa-info-circle"></span> Info</a></li>
+                </ul>
+                <div class="col-sm-3 col-md-3">
+                    @{
+                        string find = "Поиск объявлений";
+                        if (TempData["search"] != null)
+                        {
+                            find = (string)TempData["search"];
+                        }
+                    }
+                    @using (Html.BeginForm("List", "Advert", FormMethod.Post, new { @class = "navbar-form navbar-left" }))
+                    {
+                        <div class="input-group">
+                            <input id="find" name="find" type="text" class="form-control" placeholder= "@find" style="padding:6px 6px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>&nbsp;Найти</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.Partial("_LoginPartial")</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                </ul>
+            </div>
+        </div>
+        @RenderSection("featured", required: false)
+        <hr class="colorgraph">
+        @RenderBody()
+        <hr class="colorgraph">
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </div>
+
+    <footer class="text-center">
+        <p>Доска объявлений &copy; @DateTime.Now.Year</p>
+    </footer>
+</body>
+</html>
